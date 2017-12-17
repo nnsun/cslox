@@ -62,7 +62,7 @@ namespace lox
             }
         }
 
-        static void Error(int line, string message)
+        public static void Error(int line, string message)
         {
             Report(line, "", message);
         }
