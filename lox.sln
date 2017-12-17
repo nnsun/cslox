@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lox", "lox.csproj", "{64DB53FB-3B13-4F42-AD53-5883161103A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lox", "lox\lox.csproj", "{64DB53FB-3B13-4F42-AD53-5883161103A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tool", "tool\tool.csproj", "{F6C26EE3-7F2E-49AC-A7FE-38EF3B04FECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +20,12 @@ Global
 		{64DB53FB-3B13-4F42-AD53-5883161103A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64DB53FB-3B13-4F42-AD53-5883161103A4}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{64DB53FB-3B13-4F42-AD53-5883161103A4}.Test|Any CPU.Build.0 = Test|Any CPU
+		{F6C26EE3-7F2E-49AC-A7FE-38EF3B04FECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C26EE3-7F2E-49AC-A7FE-38EF3B04FECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C26EE3-7F2E-49AC-A7FE-38EF3B04FECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C26EE3-7F2E-49AC-A7FE-38EF3B04FECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6C26EE3-7F2E-49AC-A7FE-38EF3B04FECE}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C26EE3-7F2E-49AC-A7FE-38EF3B04FECE}.Test|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
