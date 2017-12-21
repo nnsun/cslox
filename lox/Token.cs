@@ -6,10 +6,10 @@ namespace lox
 {
     class Token
     {
-        readonly TokenType type;
-        readonly string lexeme;
-        readonly object literal;
-        readonly int line;
+        internal readonly TokenType type;
+        internal readonly string lexeme;
+        internal readonly object literal;
+        internal readonly int line;
 
         public Token (TokenType type, string lexeme, object literal, int line)
         {

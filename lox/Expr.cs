@@ -28,9 +28,9 @@ namespace lox
                 return visitor.VisitBinaryExpr(this);
             }
 
-            readonly Expr left;
-            readonly Token op;
-            readonly Expr right;
+            internal readonly Expr left;
+            internal readonly Token op;
+            internal readonly Expr right;
         }
 
         internal class Grouping : Expr
@@ -45,7 +45,7 @@ namespace lox
                 return visitor.VisitGroupingExpr(this);
             }
 
-            readonly Expr expression;
+            internal readonly Expr expression;
         }
 
         internal class Literal : Expr
@@ -60,7 +60,7 @@ namespace lox
                 return visitor.VisitLiteralExpr(this);
             }
 
-            readonly Object value;
+            internal readonly Object value;
         }
 
         internal class Unary : Expr
@@ -76,8 +76,8 @@ namespace lox
                 return visitor.VisitUnaryExpr(this);
             }
 
-            readonly Token op;
-            readonly Expr right;
+            internal readonly Token op;
+            internal readonly Expr right;
         }
     }
 }
