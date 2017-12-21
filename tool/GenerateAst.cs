@@ -5,7 +5,7 @@ using System.Text;
 
 namespace tool
 {
-    class GenerateAST
+    class GenerateAst
     {
         static void Main(string[] args)
         {
@@ -24,10 +24,10 @@ namespace tool
                 "Unary      : Token op, Expr right"
             };
 
-            DefineAST(outputDir, "Expr", types);
+            DefineAst(outputDir, "Expr", types);
         }
 
-        static void DefineAST(string outputDir, string baseName, List<string> types)
+        static void DefineAst(string outputDir, string baseName, List<string> types)
         {
             string path = outputDir + "/" + baseName + ".cs";
 
