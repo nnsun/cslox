@@ -40,6 +40,11 @@ namespace tool
                 sw.WriteLine(TabsToSpaces(1) + "abstract class " + baseName);
                 sw.WriteLine(TabsToSpaces(1) + '{');
 
+                DefineVisitor(sw, baseName, types);
+
+                sw.WriteLine();
+                sw.WriteLine(TabsToSpaces(2) + "protected abstract T Accept<T>(IVisitor<T> visitor);");
+
                 foreach (string type in types)
                 {
                     string className = type.Split(":")[0].Trim();
@@ -52,10 +57,25 @@ namespace tool
             }
         }
 
+        static void DefineVisitor(StreamWriter sw, string baseName, List<string> types)
+        {
+            sw.WriteLine(TabsToSpaces(2) + "protected interface IVisitor<T>");
+            sw.WriteLine(TabsToSpaces(2) + '{');
+
+            foreach (string type in types)
+            {
+                string typeName = type.Split(":")[0].Trim();
+                sw.WriteLine(TabsToSpaces(3) + "T Visit" + typeName + baseName + '(' + 
+                    typeName + " " + baseName.ToLower() + ");");
+            }
+
+            sw.WriteLine(TabsToSpaces(2) + '}');
+        }
+
         static void DefineType(StreamWriter sw, string baseName, string className, string fields)
         {
             sw.WriteLine();
-            sw.WriteLine(TabsToSpaces(2) + "class " + className + " : " + baseName);
+            sw.WriteLine(TabsToSpaces(2) + "protected class " + className + " : " + baseName);
             sw.WriteLine(TabsToSpaces(2) + '{');
             sw.WriteLine(TabsToSpaces(3) + className + "(" + fields + ")");
             sw.WriteLine(TabsToSpaces(3) + '{');
@@ -68,6 +88,12 @@ namespace tool
             }
 
             sw.WriteLine(TabsToSpaces(3) + '}');
+
+            sw.WriteLine();
+            sw.WriteLine(TabsToSpaces(3) + "protected override T Accept<T>(IVisitor<T> visitor)");
+            sw.WriteLine(TabsToSpaces(3) + "{");
+            sw.WriteLine(TabsToSpaces(4) + "return visitor.Visit" + className + baseName + "(this);");
+            sw.WriteLine(TabsToSpaces(3) + "}");
 
             sw.WriteLine();
             foreach (string field in fieldArr)
