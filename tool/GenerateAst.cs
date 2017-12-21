@@ -43,7 +43,7 @@ namespace tool
                 DefineVisitor(sw, baseName, types);
 
                 sw.WriteLine();
-                sw.WriteLine(TabsToSpaces(2) + "protected abstract T Accept<T>(IVisitor<T> visitor);");
+                sw.WriteLine(TabsToSpaces(2) + "internal abstract T Accept<T>(IVisitor<T> visitor);");
 
                 foreach (string type in types)
                 {
@@ -59,7 +59,7 @@ namespace tool
 
         static void DefineVisitor(StreamWriter sw, string baseName, List<string> types)
         {
-            sw.WriteLine(TabsToSpaces(2) + "protected interface IVisitor<T>");
+            sw.WriteLine(TabsToSpaces(2) + "internal interface IVisitor<T>");
             sw.WriteLine(TabsToSpaces(2) + '{');
 
             foreach (string type in types)
@@ -75,7 +75,7 @@ namespace tool
         static void DefineType(StreamWriter sw, string baseName, string className, string fields)
         {
             sw.WriteLine();
-            sw.WriteLine(TabsToSpaces(2) + "protected class " + className + " : " + baseName);
+            sw.WriteLine(TabsToSpaces(2) + "internal class " + className + " : " + baseName);
             sw.WriteLine(TabsToSpaces(2) + '{');
             sw.WriteLine(TabsToSpaces(3) + className + "(" + fields + ")");
             sw.WriteLine(TabsToSpaces(3) + '{');
@@ -90,7 +90,7 @@ namespace tool
             sw.WriteLine(TabsToSpaces(3) + '}');
 
             sw.WriteLine();
-            sw.WriteLine(TabsToSpaces(3) + "protected override T Accept<T>(IVisitor<T> visitor)");
+            sw.WriteLine(TabsToSpaces(3) + "internal override T Accept<T>(IVisitor<T> visitor)");
             sw.WriteLine(TabsToSpaces(3) + "{");
             sw.WriteLine(TabsToSpaces(4) + "return visitor.Visit" + className + baseName + "(this);");
             sw.WriteLine(TabsToSpaces(3) + "}");
