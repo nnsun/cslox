@@ -77,7 +77,7 @@ namespace tool
             sw.WriteLine();
             sw.WriteLine(TabsToSpaces(2) + "internal class " + className + " : " + baseName);
             sw.WriteLine(TabsToSpaces(2) + '{');
-            sw.WriteLine(TabsToSpaces(3) + className + "(" + fields + ")");
+            sw.WriteLine(TabsToSpaces(3) + "public " + className + "(" + fields + ")");
             sw.WriteLine(TabsToSpaces(3) + '{');
 
             string[] fieldArr = fields.Split(", ");
@@ -98,7 +98,7 @@ namespace tool
             sw.WriteLine();
             foreach (string field in fieldArr)
             {
-                sw.WriteLine(TabsToSpaces(3) + "readonly " + field + ';');
+                sw.WriteLine(TabsToSpaces(3) + "internal readonly " + field + ';');
             }
 
             sw.WriteLine(TabsToSpaces(2) + '}');

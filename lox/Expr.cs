@@ -16,7 +16,7 @@ namespace lox
 
         internal class Binary : Expr
         {
-            Binary(Expr left, Token op, Expr right)
+            public Binary(Expr left, Token op, Expr right)
             {
                 this.left = left;
                 this.op = op;
@@ -35,7 +35,7 @@ namespace lox
 
         internal class Grouping : Expr
         {
-            Grouping(Expr expression)
+            public Grouping(Expr expression)
             {
                 this.expression = expression;
             }
@@ -50,7 +50,7 @@ namespace lox
 
         internal class Literal : Expr
         {
-            Literal(Object value)
+            public Literal(Object value)
             {
                 this.value = value;
             }
@@ -65,7 +65,7 @@ namespace lox
 
         internal class Unary : Expr
         {
-            Unary(Token op, Expr right)
+            public Unary(Token op, Expr right)
             {
                 this.op = op;
                 this.right = right;
