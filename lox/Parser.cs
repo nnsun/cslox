@@ -6,12 +6,29 @@ namespace lox
 {
     class Parser
     {
+        class ParseError : SystemException
+        {
+
+        }
+
         readonly List<Token> tokens;
         int current = 0;
 
         public Parser(List<Token> tokens)
         {
             this.tokens = tokens;
+        }
+
+        public Expr Parse()
+        {
+            try
+            {
+                return Expression();
+            }
+            catch (ParseError error)
+            {
+                return null;
+            }
         }
 
         Expr Expression()
@@ -112,6 +129,7 @@ namespace lox
                 Consume(TokenType.RIGHT_PAREN, "Expect ')' after expression.");
                 return new Expr.Grouping(expr);
             }
+            throw Error(Peek(), "Expect expression.");
         }
 
         bool Match(params TokenType[] types)
@@ -168,6 +186,40 @@ namespace lox
             }
 
             throw new NotImplementedException();
+        }
+
+        ParseError Error(Token token, string message)
+        {
+            Lox.Error(token, message);
+            return new ParseError();
+        }
+
+        void Synchronize()
+        {
+            Advance();
+
+            while (!IsAtEnd())
+            {
+                if (Previous().type == TokenType.SEMICOLON)
+                {
+                    return;
+                }
+
+                switch (Peek().type)
+                {
+                    case TokenType.CLASS:
+                    case TokenType.FUN:
+                    case TokenType.VAR:
+                    case TokenType.FOR:
+                    case TokenType.IF:
+                    case TokenType.WHILE:
+                    case TokenType.PRINT:
+                    case TokenType.RETURN:
+                        return;
+                }
+
+                Advance();
+            }
         }
     }
 }
