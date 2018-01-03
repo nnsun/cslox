@@ -6,6 +6,11 @@ namespace lox
 {
     class Interpreter : Expr.IVisitor<object>
     {
+        public class RuntimeException : Exception
+        {
+
+        }
+
         public object VisitBinaryExpr(Expr.Binary expr)
         {
             object left = Evaluate(expr.left);
@@ -14,14 +19,19 @@ namespace lox
             switch (expr.op.type)
             {
                 case TokenType.GREATER:
+                    CheckNumberOperands(expr.op, left, right);
                     return (double)left > (double)right;
                 case TokenType.GREATER_EQUAL:
+                    CheckNumberOperands(expr.op, left, right);
                     return (double)left >= (double)right;
                 case TokenType.LESS:
+                    CheckNumberOperands(expr.op, left, right);
                     return (double)left < (double)right;
                 case TokenType.LESS_EQUAL:
+                    CheckNumberOperands(expr.op, left, right);
                     return (double)left <= (double)right;
                 case TokenType.MINUS:
+                    CheckNumberOperands(expr.op, left, right);
                     return (double)left - (double)right;
                 case TokenType.EQUAL_EQUAL:
                     return IsEqual(left, right);
@@ -37,10 +47,14 @@ namespace lox
                     {
                         return (string)left + (string)right;
                     }
-                    break;
+
+                    throw new RuntimeError(expr.op, 
+                        "Operands must be two numbers or two strings.");
                 case TokenType.SLASH:
+                    CheckNumberOperands(expr.op, left, right);
                     return (double)left / (double)right;
                 case TokenType.STAR:
+                    CheckNumberOperands(expr.op, left, right);
                     return (double)left * (double)right;
             }
 
@@ -66,10 +80,31 @@ namespace lox
                 case TokenType.BANG:
                     return !IsTruthy(right);
                 case TokenType.MINUS:
+                    CheckNumberOperand(expr.op, right);
                     return -(double)right;
             }
 
             return null;
+        }
+
+        void CheckNumberOperand(Token op, object operand)
+        {
+            if (operand is double)
+            {
+                return;
+            }
+
+            throw new RuntimeError(op, "Operand must be a number.");
+        }
+
+        void CheckNumberOperands(Token op, object left, object right)
+        {
+            if (left is double && right is double)
+            {
+                return;
+            }
+
+            throw new RuntimeError(op, "Operands must be numbers.");
         }
 
         bool IsEqual(object a, object b)

@@ -6,7 +6,7 @@ namespace lox
 {
     class Parser
     {
-        class ParseError : SystemException
+        class ParseError : Exception
         {
 
         }
