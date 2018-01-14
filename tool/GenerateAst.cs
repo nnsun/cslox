@@ -23,8 +23,12 @@ namespace tool
                 "Literal    : Object value",
                 "Unary      : Token op, Expr right"
             };
-
             DefineAst(outputDir, "Expr", types);
+
+            List<string> statements = new List<string>();
+            statements.Add("Expression : Expr expression");
+            statements.Add("Print      : Expr expression");
+            DefineAst(outputDir, "Stmt", statements);
         }
 
         static void DefineAst(string outputDir, string baseName, List<string> types)

@@ -4,19 +4,21 @@ using System.Text;
 
 namespace lox
 {
-    class Interpreter : Expr.IVisitor<object>
+    class Interpreter : Expr.IVisitor<object>, Stmt.IVisitor<object>
     {
         public class RuntimeException : Exception
         {
 
         }
 
-        public void Interpret(Expr expr)
+        public void Interpret(List<Stmt> statements)
         {
             try
             {
-                object value = Evaluate(expr);
-                Console.WriteLine(Stringify(value));
+                foreach (Stmt statement in statements)
+                {
+                    Execute(statement);
+                }
             }
             catch (RuntimeError error)
             {
@@ -169,6 +171,24 @@ namespace lox
         object Evaluate(Expr expr)
         {
             return expr.Accept(this);
+        }
+
+        void Execute(Stmt stmt)
+        {
+            stmt.Accept(this);
+        }
+
+        public object VisitExpressionStmt(Stmt.Expression stmt)
+        {
+            Evaluate(stmt.expression);
+            return null;
+        }
+
+        public object VisitPrintStmt(Stmt.Print stmt)
+        {
+            object value = Evaluate(stmt.expression);
+            Console.WriteLine(Stringify(value));
+            return null;
         }
     }
 }
